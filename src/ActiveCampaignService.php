@@ -1,0 +1,45 @@
+<?php
+
+namespace Label84\ActiveCampaign;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\PendingRequest;
+use Label84\ActiveCampaign\Resources\ActiveCampaignContactsResource;
+use Label84\ActiveCampaign\Resources\ActiveCampaignFieldValuesResource;
+
+class ActiveCampaignService
+{
+    public function __construct(
+        public readonly string $baseUrl,
+        public readonly string $key,
+        public readonly int $timeout,
+        public readonly int|null $retryTimes = null,
+        public readonly int|null $retrySleep = null,
+    ) {}
+
+    public function makeRequest(): PendingRequest
+    {
+        $request = Http::withHeaders([
+            'Api-Token' => $this->key,
+        ])
+            ->acceptJson()
+            ->baseUrl($this->baseUrl)
+            ->timeout($this->timeout);
+
+        if ($this->retryTimes != null && $this->retrySleep != null) {
+            $request->retry($this->retryTimes, $this->retrySleep);
+        }
+
+        return $request;
+    }
+
+    public function contacts(): ActiveCampaignContactsResource
+    {
+        return new ActiveCampaignContactsResource($this);
+    }
+
+    public function fieldValues(): ActiveCampaignFieldValuesResource
+    {
+        return new ActiveCampaignFieldValuesResource($this);
+    }
+}
