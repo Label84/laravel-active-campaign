@@ -116,6 +116,7 @@ $fieldValue = resolve(ActiveCampaign::class)->fieldValues()->create(1, 50, 'acti
 
 ```php
 use Label84\ActiveCampaign\ActiveCampaign;
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 
 $fieldValue = new ActiveCampaignFieldValue(1, 50, 'inactive');
 
@@ -132,7 +133,48 @@ resolve(ActiveCampaign::class)->fieldValues()->delete(50);
 
 ### Tags
 
-...
+#### Retreive an existing tag by their id
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+$tag = resolve(ActiveCampaign::class)->tags()->get(100);
+```
+
+#### List all tags filtered by name
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+$tags = resolve(ActiveCampaign::class)->tags()->list('abc');
+```
+
+#### Create a tag and get the id
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+$tag = resolve(ActiveCampaign::class)->tags()->create('test_tag', 'This is a new tag');
+```
+
+#### Update an existing tag
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
+
+$tag = new ActiveCampaignTag(100, 'test_tag', 'Another description');
+
+$tag = resolve(ActiveCampaign::class)->tags()->update($tag);
+```
+
+#### Delete an existing tag by their id
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+resolve(ActiveCampaign::class)->tags()->delete(100);
+```
 
 ## Tests
 

@@ -4,6 +4,7 @@ namespace Label84\ActiveCampaign;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
+use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignContactsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignFieldValuesResource;
 
@@ -41,5 +42,10 @@ class ActiveCampaignService
     public function fieldValues(): ActiveCampaignFieldValuesResource
     {
         return new ActiveCampaignFieldValuesResource($this);
+    }
+
+    public function tags(): ActiveCampaignTagsResource
+    {
+        return new ActiveCampaignTagsResource($this);
     }
 }
