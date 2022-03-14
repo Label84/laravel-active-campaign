@@ -1,5 +1,10 @@
 # Laravel ActiveCampaign (WIP)
 
+[![Latest Stable Version](https://poser.pugx.org/label84/laravel-active-campaign/v/stable?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Quality Score](https://img.shields.io/scrutinizer/g/label84/laravel-active-campaign.svg?style=flat-square)](https://scrutinizer-ci.com/g/label84/laravel-active-campaign)
+[![Total Downloads](https://img.shields.io/packagist/dt/label84/laravel-active-campaign.svg?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
+
 This package provides a simple interface to the ActiveCampaign API v3.
 
 Currently the packages only supports the endpoints `Contacts`, `Custom Fields Values` and `Tags`. Feel free to PR the remaining endpoints.
