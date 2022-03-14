@@ -3,16 +3,17 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
-use Label84\ActiveCampaign\Factories\TagFactory;
 use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
+use Label84\ActiveCampaign\Factories\TagFactory;
 
 class ActiveCampaignTagsResource
 {
     public function __construct(
         private readonly ActiveCampaignService $service,
-    ) {}
+    ) {
+    }
 
     /**
      * Retreive an existing tag by their id.

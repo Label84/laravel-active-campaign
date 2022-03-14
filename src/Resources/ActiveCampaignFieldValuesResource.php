@@ -11,7 +11,8 @@ class ActiveCampaignFieldValuesResource
 {
     public function __construct(
         private readonly ActiveCampaignService $service,
-    ) {}
+    ) {
+    }
 
     /**
      * Retreive an existing field value by their id.

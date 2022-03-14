@@ -4,15 +4,16 @@ namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
 use Label84\ActiveCampaign\ActiveCampaignService;
-use Label84\ActiveCampaign\Factories\ContactFactory;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
+use Label84\ActiveCampaign\Factories\ContactFactory;
 
 class ActiveCampaignContactsResource
 {
     public function __construct(
         private readonly ActiveCampaignService $service,
-    ) {}
+    ) {
+    }
 
     /**
      * Retreive an existing contact by their id.

@@ -2,11 +2,11 @@
 
 namespace Label84\ActiveCampaign;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
-use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
+use Illuminate\Support\Facades\Http;
 use Label84\ActiveCampaign\Resources\ActiveCampaignContactsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignFieldValuesResource;
+use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
 
 class ActiveCampaignService
 {
@@ -16,7 +16,8 @@ class ActiveCampaignService
         public readonly int $timeout,
         public readonly int|null $retryTimes = null,
         public readonly int|null $retrySleep = null,
-    ) {}
+    ) {
+    }
 
     public function makeRequest(): PendingRequest
     {
