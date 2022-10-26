@@ -21,6 +21,27 @@ class ActiveCampaignServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        $configPath = __DIR__ . '/../config/active-campaign.php';
+        $this->publishes([$configPath => $this->getConfigPath()], 'config');
+    }
+
+    /**
+     * Get the config path
+     *
+     * @return string
+     */
+    protected function getConfigPath()
+    {
+        return config_path('active-campaign.php');
+    }
+
+    /**
+     * Publish the config file
+     *
+     * @param string $configPath
+     */
+    protected function publishConfig($configPath)
+    {
+        $this->publishes([$configPath => config_path('active-campaign.php')], 'config');
     }
 }
