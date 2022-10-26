@@ -30,7 +30,7 @@ class ActiveCampaignServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfigPath()
+    protected function getConfigPath(): string
     {
         return config_path('active-campaign.php');
     }
@@ -40,7 +40,7 @@ class ActiveCampaignServiceProvider extends ServiceProvider
      *
      * @param string $configPath
      */
-    protected function publishConfig($configPath)
+    protected function publishConfig($configPath): void
     {
         $this->publishes([$configPath => config_path('active-campaign.php')], 'config');
     }
