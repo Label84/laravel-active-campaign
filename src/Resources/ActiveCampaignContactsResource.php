@@ -3,14 +3,12 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
-use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\ContactFactory;
 
 class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
 {
-
     /**
      * Retreive an existing contact by their id.
      *
@@ -35,7 +33,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
      */
     public function list(?string $query = ''): Collection
     {
-
         $contacts = $this->request(
             method: 'get',
             path: 'contacts?'.$query,
@@ -49,9 +46,10 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Create a contact and get the contact id.
      *
-     * @param string $email
-     * @param array $attributes
+     * @param  string  $email
+     * @param  array  $attributes
      * @return string
+     *
      * @throws ActiveCampaignException
      */
     public function create(string $email, array $attributes = []): string
@@ -60,8 +58,8 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
             method: 'post',
             path: 'contacts',
             data: ['contact' => [
-                    'email' => $email,
-                ] + $attributes
+                'email' => $email,
+            ] + $attributes,
 
             ],
             responseKey: 'contact'
@@ -73,8 +71,9 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing contact.
      *
-     * @param ActiveCampaignContact $contact
+     * @param  ActiveCampaignContact  $contact
      * @return ActiveCampaignContact
+     *
      * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignContact $contact): ActiveCampaignContact
@@ -83,11 +82,11 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
             method: 'put',
             path: 'contacts/'.$contact->id,
             data: ['contact' => [
-                    'email' => $contact->email,
-                    'firstName' => $contact->firstName,
-                    'lastName' => $contact->lastName,
-                    'phone' => $contact->phone,
-                ]
+                'email' => $contact->email,
+                'firstName' => $contact->firstName,
+                'lastName' => $contact->lastName,
+                'phone' => $contact->phone,
+            ],
             ],
             responseKey: 'contact'
         );
@@ -98,8 +97,9 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing contact by their id.
      *
-     * @param int $id
+     * @param  int  $id
      * @return void
+     *
      * @throws ActiveCampaignException
      */
     public function delete(int $id): void

@@ -2,7 +2,6 @@
 
 namespace Label84\ActiveCampaign\Resources;
 
-use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\FieldValueFactory;
@@ -12,15 +11,16 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Retreive an existing field value by their id.
      *
-     * @param int $id
+     * @param  int  $id
      * @return ActiveCampaignFieldValue
+     *
      * @throws ActiveCampaignException
      */
     public function get(int $id): ActiveCampaignFieldValue
     {
         $fieldValue = $this->request(
             method: 'get',
-            path: 'fieldValues/' . $id,
+            path: 'fieldValues/'.$id,
             responseKey: 'fieldValue'
         );
 
@@ -30,10 +30,11 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Create a field value and get the id.
      *
-     * @param int $contactId
-     * @param string $field
-     * @param string $value
+     * @param  int  $contactId
+     * @param  string  $field
+     * @param  string  $value
      * @return string
+     *
      * @throws ActiveCampaignException
      */
     public function create(int $contactId, string $field, string $value): string
@@ -45,7 +46,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
                 'id' => $contactId,
                 'field' => $field,
                 'value' => $value,
-            ]
+            ],
             ],
             responseKey: 'contact'
         );
@@ -56,15 +57,16 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Update an existing field value.
      *
-     * @param ActiveCampaignFieldValue $fieldValue
+     * @param  ActiveCampaignFieldValue  $fieldValue
      * @return ActiveCampaignFieldValue
+     *
      * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignFieldValue $fieldValue): ActiveCampaignFieldValue
     {
         $fieldValue = $this->request(
             method: 'put',
-            path: 'fieldValues/' . $fieldValue->contactId,
+            path: 'fieldValues/'.$fieldValue->contactId,
             data: ['fieldValue' => [
                 'id' => $fieldValue->contactId,
                 'field' => $fieldValue->field,
@@ -79,8 +81,9 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing field value by their id.
      *
-     * @param int $id
+     * @param  int  $id
      * @return void
+     *
      * @throws ActiveCampaignException
      */
     public function delete(int $id): void

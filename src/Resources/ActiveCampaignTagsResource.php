@@ -3,7 +3,6 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
-use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\TagFactory;
@@ -13,15 +12,16 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Retreive an existing tag by their id.
      *
-     * @param int $id
+     * @param  int  $id
      * @return ActiveCampaignTag
+     *
      * @throws ActiveCampaignException
      */
     public function get(int $id): ActiveCampaignTag
     {
         $tag = $this->request(
             method: 'get',
-            path: 'tags/' . $id,
+            path: 'tags/'.$id,
             responseKey: 'tag'
         );
 
@@ -32,26 +32,28 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
      * List all tags filtered by name
      *
      * @return Collection<int, ActiveCampaignTag>
+     *
      * @throws ActiveCampaignException
      */
     public function list(?string $name = ''): Collection
     {
         $tags = $this->request(
             method: 'get',
-            path: 'tags?search=' . $name,
+            path: 'tags?search='.$name,
             responseKey: 'tags'
         );
 
         return (new Collection($tags))
-            ->map(fn($tag) => TagFactory::make($tag));
+            ->map(fn ($tag) => TagFactory::make($tag));
     }
 
     /**
      * Create a tag and get the id.
      *
-     * @param string $name
-     * @param string $description
+     * @param  string  $name
+     * @param  string  $description
      * @return string
+     *
      * @throws ActiveCampaignException
      */
     public function create(string $name, string $description = ''): string
@@ -73,15 +75,16 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing tag.
      *
-     * @param ActiveCampaignTag $tag
+     * @param  ActiveCampaignTag  $tag
      * @return ActiveCampaignTag
+     *
      * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
     {
         $tag = $this->request(
             method: 'put',
-            path: 'tags/' . $tag->id,
+            path: 'tags/'.$tag->id,
             data: ['tag' => [
                 'id' => $tag->id,
                 'tag' => $tag->name,
@@ -96,8 +99,9 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing tag by their id.
      *
-     * @param int $id
+     * @param  int  $id
      * @return void
+     *
      * @throws ActiveCampaignException
      */
     public function delete(int $id): void
