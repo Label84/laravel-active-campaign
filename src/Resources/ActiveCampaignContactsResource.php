@@ -109,4 +109,48 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
             path: 'contacts/'.$id
         );
     }
+
+    /**
+     * Add a tag to contact
+     *
+     * @see https://developers.activecampaign.com/reference/create-contact-tag
+     *
+     * @param  int  $id
+     * @param  int  $tag_id
+     * @return string
+     *
+     * @throws ActiveCampaignException
+     */
+    public function tag(int $id, int $tag_id): string
+    {
+        $contactTag = $this->request(
+            method: 'post',
+            path: 'contactTags',
+            data: ['contactTag' => [
+                'contact' => $id,
+                'tag' => $tag_id,
+            ]],
+            responseKey: 'contactTag'
+        );
+
+        return $contactTag['id'];
+    }
+
+    /**
+     * Remove a tag from a contact
+     *
+     * @see https://developers.activecampaign.com/reference#delete-contact-tag
+     *
+     * @param  int  $contact_tag_id
+     * @return void
+     *
+     * @throws ActiveCampaignException
+     */
+    public function untag(int $contact_tag_id): void
+    {
+        $this->request(
+            method: 'delete',
+            path: 'contactTags/'.$contact_tag_id
+        );
+    }
 }

@@ -99,6 +99,20 @@ use Label84\ActiveCampaign\ActiveCampaign;
 resolve(ActiveCampaign::class)->contacts()->delete(1);
 ```
 
+#### Add a tag to contact
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+resolve(ActiveCampaign::class)->contacts()->tag(id: 1, tag_id: 20);
+```
+
+#### Remove a tag from a contact
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+resolve(ActiveCampaign::class)->contacts()->untag(contact_tag_id: 2340);
+```
+
 ### Custom Field Values
 
 #### Retreive an existing field value by their id
