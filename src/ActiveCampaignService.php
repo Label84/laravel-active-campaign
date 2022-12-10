@@ -11,7 +11,7 @@ use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
 class ActiveCampaignService
 {
     public function __construct(
-        public string   $baseUrl,
+        public string            $baseUrl,
         public string   $key,
         public int      $timeout,
         public int|null $retryTimes = null,
