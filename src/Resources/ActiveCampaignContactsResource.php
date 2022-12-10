@@ -8,12 +8,8 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\ContactFactory;
 
-class ActiveCampaignContactsResource
+class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
 {
-    public function __construct(
-        private ActiveCampaignService $service,
-    ) {
-    }
 
     /**
      * Retreive an existing contact by their id.
@@ -23,15 +19,11 @@ class ActiveCampaignContactsResource
      */
     public function get(int $id): ActiveCampaignContact
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->get("/contacts/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+        $contact = $this->request(
+            method: 'get',
+            path: 'contacts/'.$id,
+            responseKey: 'contact'
+        );
 
         return ContactFactory::make($contact);
     }
@@ -43,40 +35,37 @@ class ActiveCampaignContactsResource
      */
     public function list(?string $query = ''): Collection
     {
-        $request = $this->service->makeRequest();
 
-        $response = $request->get("contacts?{$query}");
+        $contacts = $this->request(
+            method: 'get',
+            path: 'contacts?'.$query,
+            responseKey: 'contacts'
+        );
 
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contacts = json_decode($response->body(), true)['contacts'];
-
-        return (new Collection($contacts))
+        return collect($contacts)
             ->map(fn ($contact) => ContactFactory::make($contact));
     }
 
     /**
      * Create a contact and get the contact id.
      *
-     * @param  string  $email
-     * @param  array  $attributes
+     * @param string $email
+     * @param array $attributes
      * @return string
+     * @throws ActiveCampaignException
      */
     public function create(string $email, array $attributes = []): string
     {
-        $request = $this->service->makeRequest();
+        $contact = $this->request(
+            method: 'post',
+            path: 'contacts',
+            data: ['contact' => [
+                    'email' => $email,
+                ] + $attributes
 
-        $response = $request->post('/contacts', ['contact' => [
-            'email' => $email,
-        ] + $attributes]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+            ],
+            responseKey: 'contact'
+        );
 
         return $contact['id'];
     }
@@ -84,25 +73,24 @@ class ActiveCampaignContactsResource
     /**
      * Update an existing contact.
      *
-     * @param  ActiveCampaignContact  $contact
+     * @param ActiveCampaignContact $contact
      * @return ActiveCampaignContact
+     * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignContact $contact): ActiveCampaignContact
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->put("/contacts/{$contact->id}", ['contact' => [
-            'email' => $contact->email,
-            'firstName' => $contact->firstName,
-            'lastName' => $contact->lastName,
-            'phone' => $contact->phone,
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+        $contact = $this->request(
+            method: 'put',
+            path: 'contacts/'.$contact->id,
+            data: ['contact' => [
+                    'email' => $contact->email,
+                    'firstName' => $contact->firstName,
+                    'lastName' => $contact->lastName,
+                    'phone' => $contact->phone,
+                ]
+            ],
+            responseKey: 'contact'
+        );
 
         return ContactFactory::make($contact);
     }
@@ -110,19 +98,15 @@ class ActiveCampaignContactsResource
     /**
      * Delete an existing contact by their id.
      *
-     * @param  int  $id
-     * @return int
+     * @param int $id
+     * @return void
+     * @throws ActiveCampaignException
      */
-    public function delete(int $id): int
+    public function delete(int $id): void
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->delete("/contacts/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        return $response->status();
+        $this->request(
+            method: 'delete',
+            path: 'contacts/'.$id
+        );
     }
 }

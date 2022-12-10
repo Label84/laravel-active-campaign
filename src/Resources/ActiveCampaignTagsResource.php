@@ -8,30 +8,22 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\TagFactory;
 
-class ActiveCampaignTagsResource
+class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
 {
-    public function __construct(
-        private ActiveCampaignService $service,
-    ) {
-    }
-
     /**
      * Retreive an existing tag by their id.
      *
-     * @param  int  $id
+     * @param int $id
      * @return ActiveCampaignTag
+     * @throws ActiveCampaignException
      */
     public function get(int $id): ActiveCampaignTag
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->get("/tags/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $tag = json_decode($response->body(), true)['tag'];
+        $tag = $this->request(
+            method: 'get',
+            path: 'tags/' . $id,
+            responseKey: 'tag'
+        );
 
         return TagFactory::make($tag);
     }
@@ -40,45 +32,40 @@ class ActiveCampaignTagsResource
      * List all tags filtered by name
      *
      * @return Collection<int, ActiveCampaignTag>
+     * @throws ActiveCampaignException
      */
     public function list(?string $name = ''): Collection
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->get("tags?search={$name}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $tags = json_decode($response->body(), true)['tags'];
+        $tags = $this->request(
+            method: 'get',
+            path: 'tags?search=' . $name,
+            responseKey: 'tags'
+        );
 
         return (new Collection($tags))
-            ->map(fn ($tag) => TagFactory::make($tag));
+            ->map(fn($tag) => TagFactory::make($tag));
     }
 
     /**
      * Create a tag and get the id.
      *
-     * @param  string  $name
-     * @param  string  $description
+     * @param string $name
+     * @param string $description
      * @return string
+     * @throws ActiveCampaignException
      */
     public function create(string $name, string $description = ''): string
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->post('/tags', ['tag' => [
-            'tag' => $name,
-            'description' => $description,
-            'tagType' => 'contact',
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $tag = json_decode($response->body(), true)['tag'];
+        $tag = $this->request(
+            method: 'post',
+            path: 'tags',
+            data: ['tag' => [
+                'tag' => $name,
+                'description' => $description,
+                'tagType' => 'contact',
+            ]],
+            responseKey: 'tag'
+        );
 
         return $tag['id'];
     }
@@ -86,24 +73,22 @@ class ActiveCampaignTagsResource
     /**
      * Update an existing tag.
      *
-     * @param  ActiveCampaignTag  $tag
+     * @param ActiveCampaignTag $tag
      * @return ActiveCampaignTag
+     * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->put("/tags/{$tag->id}", ['tag' => [
-            'id' => $tag->id,
-            'tag' => $tag->name,
-            'description' => $tag->description,
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $tag = json_decode($response->body(), true)['tag'];
+        $tag = $this->request(
+            method: 'put',
+            path: 'tags/' . $tag->id,
+            data: ['tag' => [
+                'id' => $tag->id,
+                'tag' => $tag->name,
+                'description' => $tag->description,
+            ]],
+            responseKey: 'tag'
+        );
 
         return TagFactory::make($tag);
     }
@@ -111,19 +96,15 @@ class ActiveCampaignTagsResource
     /**
      * Delete an existing tag by their id.
      *
-     * @param  int  $id
-     * @return int
+     * @param int $id
+     * @return void
+     * @throws ActiveCampaignException
      */
-    public function delete(int $id): int
+    public function delete(int $id): void
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->delete("/tags/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        return $response->status();
+        $this->request(
+            method: 'delete',
+            path: 'tags/'.$id
+        );
     }
 }
