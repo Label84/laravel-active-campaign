@@ -7,7 +7,7 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 class FieldValueFactory
 {
     /**
-     * @param array<string> $attributes
+     * @param  array<string>  $attributes
      * @return ActiveCampaignFieldValue
      */
     public static function make(array $attributes): ActiveCampaignFieldValue

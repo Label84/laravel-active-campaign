@@ -11,13 +11,14 @@ use Label84\ActiveCampaign\Factories\ContactFactory;
 class ActiveCampaignContactsResource
 {
     public function __construct(
-        private readonly ActiveCampaignService $service,
+        private ActiveCampaignService $service,
     ) {
     }
 
     /**
      * Retreive an existing contact by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return ActiveCampaignContact
      */
     public function get(int $id): ActiveCampaignContact
@@ -37,6 +38,7 @@ class ActiveCampaignContactsResource
 
     /**
      * List all contact, search contacts, or filter contacts by query defined criteria.
+     *
      * @return Collection<int, ActiveCampaignContact>
      */
     public function list(?string $query = ''): Collection
@@ -57,8 +59,9 @@ class ActiveCampaignContactsResource
 
     /**
      * Create a contact and get the contact id.
-     * @param string $email
-     * @param array $attributes
+     *
+     * @param  string  $email
+     * @param  array  $attributes
      * @return string
      */
     public function create(string $email, array $attributes = []): string
@@ -80,7 +83,8 @@ class ActiveCampaignContactsResource
 
     /**
      * Update an existing contact.
-     * @param ActiveCampaignContact $contact
+     *
+     * @param  ActiveCampaignContact  $contact
      * @return ActiveCampaignContact
      */
     public function update(ActiveCampaignContact $contact): ActiveCampaignContact
@@ -105,7 +109,8 @@ class ActiveCampaignContactsResource
 
     /**
      * Delete an existing contact by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return int
      */
     public function delete(int $id): int

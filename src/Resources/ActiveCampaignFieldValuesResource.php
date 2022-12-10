@@ -10,13 +10,14 @@ use Label84\ActiveCampaign\Factories\FieldValueFactory;
 class ActiveCampaignFieldValuesResource
 {
     public function __construct(
-        private readonly ActiveCampaignService $service,
+        private ActiveCampaignService $service,
     ) {
     }
 
     /**
      * Retreive an existing field value by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return ActiveCampaignFieldValue
      */
     public function get(int $id): ActiveCampaignFieldValue
@@ -36,9 +37,10 @@ class ActiveCampaignFieldValuesResource
 
     /**
      * Create a field value and get the id.
-     * @param int $contactId
-     * @param string $field
-     * @param string $value
+     *
+     * @param  int  $contactId
+     * @param  string  $field
+     * @param  string  $value
      * @return string
      */
     public function create(int $contactId, string $field, string $value): string
@@ -62,7 +64,8 @@ class ActiveCampaignFieldValuesResource
 
     /**
      * Update an existing field value.
-     * @param ActiveCampaignFieldValue $fieldValue
+     *
+     * @param  ActiveCampaignFieldValue  $fieldValue
      * @return ActiveCampaignFieldValue
      */
     public function update(ActiveCampaignFieldValue $fieldValue): ActiveCampaignFieldValue
@@ -86,7 +89,8 @@ class ActiveCampaignFieldValuesResource
 
     /**
      * Delete an existing field value by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return int
      */
     public function delete(int $id): int

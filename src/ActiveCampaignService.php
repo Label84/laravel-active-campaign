@@ -11,11 +11,11 @@ use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
 class ActiveCampaignService
 {
     public function __construct(
-        public readonly string $baseUrl,
-        public readonly string $key,
-        public readonly int $timeout,
-        public readonly int|null $retryTimes = null,
-        public readonly int|null $retrySleep = null,
+        public string            $baseUrl,
+        public string   $key,
+        public int      $timeout,
+        public int|null $retryTimes = null,
+        public int|null $retrySleep = null,
     ) {
     }
 

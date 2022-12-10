@@ -11,13 +11,14 @@ use Label84\ActiveCampaign\Factories\TagFactory;
 class ActiveCampaignTagsResource
 {
     public function __construct(
-        private readonly ActiveCampaignService $service,
+        private ActiveCampaignService $service,
     ) {
     }
 
     /**
      * Retreive an existing tag by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return ActiveCampaignTag
      */
     public function get(int $id): ActiveCampaignTag
@@ -37,6 +38,7 @@ class ActiveCampaignTagsResource
 
     /**
      * List all tags filtered by name
+     *
      * @return Collection<int, ActiveCampaignTag>
      */
     public function list(?string $name = ''): Collection
@@ -57,8 +59,9 @@ class ActiveCampaignTagsResource
 
     /**
      * Create a tag and get the id.
-     * @param string $name
-     * @param string $description
+     *
+     * @param  string  $name
+     * @param  string  $description
      * @return string
      */
     public function create(string $name, string $description = ''): string
@@ -82,7 +85,8 @@ class ActiveCampaignTagsResource
 
     /**
      * Update an existing tag.
-     * @param ActiveCampaignTag $tag
+     *
+     * @param  ActiveCampaignTag  $tag
      * @return ActiveCampaignTag
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
@@ -106,7 +110,8 @@ class ActiveCampaignTagsResource
 
     /**
      * Delete an existing tag by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return int
      */
     public function delete(int $id): int
