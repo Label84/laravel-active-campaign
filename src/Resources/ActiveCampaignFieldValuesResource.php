@@ -42,11 +42,12 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
         $fieldValue = $this->request(
             method: 'post',
             path: 'fieldValues',
-            data: ['fieldValue' => [
-                'id' => $contactId,
-                'field' => $field,
-                'value' => $value,
-            ],
+            data: [
+                'fieldValue' => [
+                    'id' => $contactId,
+                    'field' => $field,
+                    'value' => $value,
+                ],
             ],
             responseKey: 'contact'
         );
@@ -67,11 +68,13 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
         $fieldValue = $this->request(
             method: 'put',
             path: 'fieldValues/'.$fieldValue->contactId,
-            data: ['fieldValue' => [
-                'id' => $fieldValue->contactId,
-                'field' => $fieldValue->field,
-                'value' => $fieldValue->value,
-            ]],
+            data: [
+                'fieldValue' => [
+                    'id' => $fieldValue->contactId,
+                    'field' => $fieldValue->field,
+                    'value' => $fieldValue->value,
+                ],
+            ],
             responseKey: 'fieldValue'
         );
 

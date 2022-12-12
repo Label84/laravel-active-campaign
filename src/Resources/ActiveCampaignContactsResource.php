@@ -57,10 +57,10 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
         $contact = $this->request(
             method: 'post',
             path: 'contacts',
-            data: ['contact' => [
-                'email' => $email,
-            ] + $attributes,
-
+            data: [
+                'contact' => [
+                    'email' => $email,
+                ] + $attributes,
             ],
             responseKey: 'contact'
         );
@@ -81,12 +81,13 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
         $contact = $this->request(
             method: 'put',
             path: 'contacts/'.$contact->id,
-            data: ['contact' => [
-                'email' => $contact->email,
-                'firstName' => $contact->firstName,
-                'lastName' => $contact->lastName,
-                'phone' => $contact->phone,
-            ],
+            data: [
+                'contact' => [
+                    'email' => $contact->email,
+                    'firstName' => $contact->firstName,
+                    'lastName' => $contact->lastName,
+                    'phone' => $contact->phone,
+                ],
             ],
             responseKey: 'contact'
         );
@@ -126,10 +127,12 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
         $contactTag = $this->request(
             method: 'post',
             path: 'contactTags',
-            data: ['contactTag' => [
-                'contact' => $id,
-                'tag' => $tag_id,
-            ]],
+            data: [
+                'contactTag' => [
+                    'contact' => $id,
+                    'tag' => $tag_id,
+                ],
+            ],
             responseKey: 'contactTag'
         );
 

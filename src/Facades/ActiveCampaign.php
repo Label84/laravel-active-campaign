@@ -12,7 +12,7 @@ use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
  * @method PendingRequest makeRequest()
  * @method ActiveCampaignContactsResource contacts()
  * @method ActiveCampaignFieldValuesResource fieldValues()
- * @method ActiveCampaignTagsResource ActiveCampaignTagsResourcetags()
+ * @method ActiveCampaignTagsResource tags()
  */
 class ActiveCampaign extends Facade
 {

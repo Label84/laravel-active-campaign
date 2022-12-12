@@ -61,11 +61,13 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
         $tag = $this->request(
             method: 'post',
             path: 'tags',
-            data: ['tag' => [
-                'tag' => $name,
-                'description' => $description,
-                'tagType' => 'contact',
-            ]],
+            data: [
+                'tag' => [
+                    'tag' => $name,
+                    'description' => $description,
+                    'tagType' => 'contact',
+                ],
+            ],
             responseKey: 'tag'
         );
 
@@ -85,11 +87,13 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
         $tag = $this->request(
             method: 'put',
             path: 'tags/'.$tag->id,
-            data: ['tag' => [
-                'id' => $tag->id,
-                'tag' => $tag->name,
-                'description' => $tag->description,
-            ]],
+            data: [
+                'tag' => [
+                    'id' => $tag->id,
+                    'tag' => $tag->name,
+                    'description' => $tag->description,
+                ],
+            ],
             responseKey: 'tag'
         );
 
