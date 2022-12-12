@@ -13,10 +13,21 @@
       "php": "^8.0.2",
       "illuminate/support": "^8.0|^9.0"
     },
+    "require-dev": {
+      "laravel/pint": "^1.0",
+      "orchestra/testbench": "^6.0|7.0",
+      "nunomaduro/larastan": "^2.0",
+      "phpunit/phpunit": "^9.5"
+    },
     "autoload": {
       "psr-4": {
           "Label84\\ActiveCampaign\\": "src"
       }
+    },
+    "scripts": {
+      "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+      "analyse": "vendor/bin/phpstan analyse",
+      "format": "vendor/bin/pint"
     },
     "extra": {
       "laravel": {
@@ -24,14 +35,9 @@
               "Label84\\ActiveCampaign\\ActiveCampaignServiceProvider"
           ],
           "aliases": {
-            "StatsHelper": "Label84\\ActiveCampaign\\Facades\\ActiveCampaign"
+            "ActiveCampaign": "Label84\\ActiveCampaign\\Facades\\ActiveCampaign"
         }
       }
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.0|7.0",
-        "nunomaduro/larastan": "^2.0",
-        "phpunit/phpunit": "^9.5"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

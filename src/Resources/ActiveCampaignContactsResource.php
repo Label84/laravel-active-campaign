@@ -3,121 +3,154 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
-use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\ContactFactory;
 
-class ActiveCampaignContactsResource
+class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
 {
-    public function __construct(
-        private readonly ActiveCampaignService $service,
-    ) {
-    }
-
     /**
      * Retreive an existing contact by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return ActiveCampaignContact
      */
     public function get(int $id): ActiveCampaignContact
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->get("/contacts/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+        $contact = $this->request(
+            method: 'get',
+            path: 'contacts/'.$id,
+            responseKey: 'contact'
+        );
 
         return ContactFactory::make($contact);
     }
 
     /**
      * List all contact, search contacts, or filter contacts by query defined criteria.
+     *
      * @return Collection<int, ActiveCampaignContact>
      */
     public function list(?string $query = ''): Collection
     {
-        $request = $this->service->makeRequest();
+        $contacts = $this->request(
+            method: 'get',
+            path: 'contacts?'.$query,
+            responseKey: 'contacts'
+        );
 
-        $response = $request->get("contacts?{$query}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contacts = json_decode($response->body(), true)['contacts'];
-
-        return (new Collection($contacts))
+        return collect($contacts)
             ->map(fn ($contact) => ContactFactory::make($contact));
     }
 
     /**
      * Create a contact and get the contact id.
-     * @param string $email
-     * @param array $attributes
+     *
+     * @param  string  $email
+     * @param  array  $attributes
      * @return string
+     *
+     * @throws ActiveCampaignException
      */
     public function create(string $email, array $attributes = []): string
     {
-        $request = $this->service->makeRequest();
+        $contact = $this->request(
+            method: 'post',
+            path: 'contacts',
+            data: ['contact' => [
+                'email' => $email,
+            ] + $attributes,
 
-        $response = $request->post('/contacts', ['contact' => [
-            'email' => $email,
-        ] + $attributes]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+            ],
+            responseKey: 'contact'
+        );
 
         return $contact['id'];
     }
 
     /**
      * Update an existing contact.
-     * @param ActiveCampaignContact $contact
+     *
+     * @param  ActiveCampaignContact  $contact
      * @return ActiveCampaignContact
+     *
+     * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignContact $contact): ActiveCampaignContact
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->put("/contacts/{$contact->id}", ['contact' => [
-            'email' => $contact->email,
-            'firstName' => $contact->firstName,
-            'lastName' => $contact->lastName,
-            'phone' => $contact->phone,
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $contact = json_decode($response->body(), true)['contact'];
+        $contact = $this->request(
+            method: 'put',
+            path: 'contacts/'.$contact->id,
+            data: ['contact' => [
+                'email' => $contact->email,
+                'firstName' => $contact->firstName,
+                'lastName' => $contact->lastName,
+                'phone' => $contact->phone,
+            ],
+            ],
+            responseKey: 'contact'
+        );
 
         return ContactFactory::make($contact);
     }
 
     /**
      * Delete an existing contact by their id.
-     * @param int $id
-     * @return int
+     *
+     * @param  int  $id
+     * @return void
+     *
+     * @throws ActiveCampaignException
      */
-    public function delete(int $id): int
+    public function delete(int $id): void
     {
-        $request = $this->service->makeRequest();
+        $this->request(
+            method: 'delete',
+            path: 'contacts/'.$id
+        );
+    }
 
-        $response = $request->delete("/contacts/{$id}");
+    /**
+     * Add a tag to contact
+     *
+     * @see https://developers.activecampaign.com/reference/create-contact-tag
+     *
+     * @param  int  $id
+     * @param  int  $tag_id
+     * @return string
+     *
+     * @throws ActiveCampaignException
+     */
+    public function tag(int $id, int $tag_id): string
+    {
+        $contactTag = $this->request(
+            method: 'post',
+            path: 'contactTags',
+            data: ['contactTag' => [
+                'contact' => $id,
+                'tag' => $tag_id,
+            ]],
+            responseKey: 'contactTag'
+        );
 
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
+        return $contactTag['id'];
+    }
 
-        return $response->status();
+    /**
+     * Remove a tag from a contact
+     *
+     * @see https://developers.activecampaign.com/reference#delete-contact-tag
+     *
+     * @param  int  $contact_tag_id
+     * @return void
+     *
+     * @throws ActiveCampaignException
+     */
+    public function untag(int $contact_tag_id): void
+    {
+        $this->request(
+            method: 'delete',
+            path: 'contactTags/'.$contact_tag_id
+        );
     }
 }

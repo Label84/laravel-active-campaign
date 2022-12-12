@@ -7,7 +7,7 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 class ContactFactory
 {
     /**
-     * @param array<string> $attributes
+     * @param  array<string>  $attributes
      * @return ActiveCampaignContact
      */
     public static function make(array $attributes): ActiveCampaignContact

@@ -7,7 +7,7 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 class TagFactory
 {
     /**
-     * @param array<string> $attributes
+     * @param  array<string>  $attributes
      * @return ActiveCampaignTag
      */
     public static function make(array $attributes): ActiveCampaignTag

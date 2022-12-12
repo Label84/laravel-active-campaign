@@ -2,103 +2,95 @@
 
 namespace Label84\ActiveCampaign\Resources;
 
-use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\FieldValueFactory;
 
-class ActiveCampaignFieldValuesResource
+class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
 {
-    public function __construct(
-        private readonly ActiveCampaignService $service,
-    ) {
-    }
-
     /**
      * Retreive an existing field value by their id.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return ActiveCampaignFieldValue
+     *
+     * @throws ActiveCampaignException
      */
     public function get(int $id): ActiveCampaignFieldValue
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->get("/fieldValues/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $fieldValue = json_decode($response->body(), true)['fieldValue'];
+        $fieldValue = $this->request(
+            method: 'get',
+            path: 'fieldValues/'.$id,
+            responseKey: 'fieldValue'
+        );
 
         return FieldValueFactory::make($fieldValue);
     }
 
     /**
      * Create a field value and get the id.
-     * @param int $contactId
-     * @param string $field
-     * @param string $value
+     *
+     * @param  int  $contactId
+     * @param  string  $field
+     * @param  string  $value
      * @return string
+     *
+     * @throws ActiveCampaignException
      */
     public function create(int $contactId, string $field, string $value): string
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->post('/fieldValues', ['fieldValue' => [
-            'id' => $contactId,
-            'field' => $field,
-            'value' => $value,
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $fieldValue = json_decode($response->body(), true)['fieldValue'];
+        $fieldValue = $this->request(
+            method: 'post',
+            path: 'fieldValues',
+            data: ['fieldValue' => [
+                'id' => $contactId,
+                'field' => $field,
+                'value' => $value,
+            ],
+            ],
+            responseKey: 'contact'
+        );
 
         return $fieldValue['id'];
     }
 
     /**
      * Update an existing field value.
-     * @param ActiveCampaignFieldValue $fieldValue
+     *
+     * @param  ActiveCampaignFieldValue  $fieldValue
      * @return ActiveCampaignFieldValue
+     *
+     * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignFieldValue $fieldValue): ActiveCampaignFieldValue
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->put("/fieldValues/{$fieldValue->contactId}", ['fieldValue' => [
-            'id' => $fieldValue->contactId,
-            'field' => $fieldValue->field,
-            'value' => $fieldValue->value,
-        ]]);
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        $fieldValue = json_decode($response->body(), true)['fieldValue'];
+        $fieldValue = $this->request(
+            method: 'put',
+            path: 'fieldValues/'.$fieldValue->contactId,
+            data: ['fieldValue' => [
+                'id' => $fieldValue->contactId,
+                'field' => $fieldValue->field,
+                'value' => $fieldValue->value,
+            ]],
+            responseKey: 'fieldValue'
+        );
 
         return FieldValueFactory::make($fieldValue);
     }
 
     /**
      * Delete an existing field value by their id.
-     * @param int $id
-     * @return int
+     *
+     * @param  int  $id
+     * @return void
+     *
+     * @throws ActiveCampaignException
      */
-    public function delete(int $id): int
+    public function delete(int $id): void
     {
-        $request = $this->service->makeRequest();
-
-        $response = $request->delete("/fieldValues/{$id}");
-
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
-        }
-
-        return $response->status();
+        $this->request(
+            method: 'delete',
+            path: 'fieldValues/'.$id
+        );
     }
 }
