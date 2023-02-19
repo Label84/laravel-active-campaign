@@ -1,4 +1,4 @@
-# Laravel ActiveCampaign (WIP)
+# Laravel ActiveCampaign
 
 [![Latest Stable Version](https://poser.pugx.org/label84/laravel-active-campaign/v/stable?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
@@ -10,7 +10,6 @@ This package provides a simple interface to the ActiveCampaign API v3.
 Currently the packages only supports the endpoints `Contacts`, `Custom Fields Values` and `Tags`. Feel free to PR the remaining endpoints.
 
 - [Requirements](#requirements)
-- [Laravel support](#laravel-support)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Contacts](#contacts)
@@ -97,6 +96,22 @@ $contact = resolve(ActiveCampaign::class)->contacts()->update($contact);
 use Label84\ActiveCampaign\ActiveCampaign;
 
 resolve(ActiveCampaign::class)->contacts()->delete(1);
+```
+
+#### Add a tag to contact
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+resolve(ActiveCampaign::class)->contacts()->tag(1, 20);
+```
+
+#### Remove a tag from a contact
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+resolve(ActiveCampaign::class)->contacts()->untag(2340);
 ```
 
 ### Custom Field Values
