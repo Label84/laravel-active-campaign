@@ -23,7 +23,7 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 | Version | Release |
 |---------|---------|
 | 10.x    | 1.1     |
-| 9.x     | 1.2     |
+| 9.x     | 1.1     |
 
 ## Installation
 
