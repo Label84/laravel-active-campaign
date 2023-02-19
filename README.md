@@ -9,7 +9,7 @@ This package provides a simple interface to the ActiveCampaign API v3.
 
 Currently the packages only supports the endpoints `Contacts`, `Custom Fields Values` and `Tags`. Feel free to PR the remaining endpoints.
 
-- [Requirements](#requirements)
+- [Laravel Support](#laravel-support)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Contacts](#contacts)
@@ -18,10 +18,12 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 - [Tests](#tests)
 - [License](#license)
 
-## Requirements
+## Laravel Support
 
-- PHP 8.x
-- Laravel 9.x
+| Version | Release |
+|---------|---------|
+| 10.x    | 1.1     |
+| 9.x     | 1.2     |
 
 ## Installation
 
