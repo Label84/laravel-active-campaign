@@ -44,7 +44,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
             path: 'fieldValues',
             data: [
                 'fieldValue' => [
-                    'id' => $contactId,
+                    'contact' => $contactId,
                     'field' => $field,
                     'value' => $value,
                 ],
@@ -70,7 +70,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
             path: 'fieldValues/'.$fieldValue->contactId,
             data: [
                 'fieldValue' => [
-                    'id' => $fieldValue->contactId,
+                    'contact' => $fieldValue->contactId,
                     'field' => $fieldValue->field,
                     'value' => $fieldValue->value,
                 ],
