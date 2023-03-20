@@ -8,7 +8,6 @@ class TagFactory
 {
     /**
      * @param  array<string>  $attributes
-     * @return ActiveCampaignTag
      */
     public static function make(array $attributes): ActiveCampaignTag
     {

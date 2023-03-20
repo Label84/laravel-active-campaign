@@ -8,7 +8,6 @@ class FieldValueFactory
 {
     /**
      * @param  array<string>  $attributes
-     * @return ActiveCampaignFieldValue
      */
     public static function make(array $attributes): ActiveCampaignFieldValue
     {

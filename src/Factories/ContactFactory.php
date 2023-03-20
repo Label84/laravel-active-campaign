@@ -8,7 +8,6 @@ class ContactFactory
 {
     /**
      * @param  array<string>  $attributes
-     * @return ActiveCampaignContact
      */
     public static function make(array $attributes): ActiveCampaignContact
     {

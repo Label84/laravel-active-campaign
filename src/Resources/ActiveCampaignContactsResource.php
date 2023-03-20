@@ -11,9 +11,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
 {
     /**
      * Retreive an existing contact by their id.
-     *
-     * @param  int  $id
-     * @return ActiveCampaignContact
      */
     public function get(int $id): ActiveCampaignContact
     {
@@ -46,9 +43,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Create a contact and get the contact id.
      *
-     * @param  string  $email
-     * @param  array  $attributes
-     * @return string
      *
      * @throws ActiveCampaignException
      */
@@ -71,8 +65,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing contact.
      *
-     * @param  ActiveCampaignContact  $contact
-     * @return ActiveCampaignContact
      *
      * @throws ActiveCampaignException
      */
@@ -98,8 +90,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing contact by their id.
      *
-     * @param  int  $id
-     * @return void
      *
      * @throws ActiveCampaignException
      */
@@ -115,10 +105,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
      * Add a tag to a contact.
      *
      * @see https://developers.activecampaign.com/reference/create-contact-tag
-     *
-     * @param  int  $id
-     * @param  int  $tagId
-     * @return string
      *
      * @throws ActiveCampaignException
      */
@@ -143,9 +129,6 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
      * Remove a tag from a contact.
      *
      * @see https://developers.activecampaign.com/reference#delete-contact-tag
-     *
-     * @param  int  $contactTagId
-     * @return void
      *
      * @throws ActiveCampaignException
      */

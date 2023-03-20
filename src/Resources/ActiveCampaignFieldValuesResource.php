@@ -11,8 +11,6 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Retreive an existing field value by their id.
      *
-     * @param  int  $id
-     * @return ActiveCampaignFieldValue
      *
      * @throws ActiveCampaignException
      */
@@ -30,10 +28,6 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Create a field value and get the id.
      *
-     * @param  int  $contactId
-     * @param  string  $field
-     * @param  string  $value
-     * @return string
      *
      * @throws ActiveCampaignException
      */
@@ -58,8 +52,6 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Update an existing field value.
      *
-     * @param  ActiveCampaignFieldValue  $fieldValue
-     * @return ActiveCampaignFieldValue
      *
      * @throws ActiveCampaignException
      */
@@ -84,8 +76,6 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing field value by their id.
      *
-     * @param  int  $id
-     * @return void
      *
      * @throws ActiveCampaignException
      */

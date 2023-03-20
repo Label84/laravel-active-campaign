@@ -12,8 +12,6 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Retreive an existing tag by their id.
      *
-     * @param  int  $id
-     * @return ActiveCampaignTag
      *
      * @throws ActiveCampaignException
      */
@@ -50,9 +48,6 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Create a tag and get the id.
      *
-     * @param  string  $name
-     * @param  string  $description
-     * @return string
      *
      * @throws ActiveCampaignException
      */
@@ -77,8 +72,6 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing tag.
      *
-     * @param  ActiveCampaignTag  $tag
-     * @return ActiveCampaignTag
      *
      * @throws ActiveCampaignException
      */
@@ -103,8 +96,6 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Delete an existing tag by their id.
      *
-     * @param  int  $id
-     * @return void
      *
      * @throws ActiveCampaignException
      */

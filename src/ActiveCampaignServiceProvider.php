@@ -27,8 +27,6 @@ class ActiveCampaignServiceProvider extends ServiceProvider
 
     /**
      * Get the config path
-     *
-     * @return string
      */
     protected function getConfigPath(): string
     {
