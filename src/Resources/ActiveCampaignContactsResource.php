@@ -10,7 +10,11 @@ use Label84\ActiveCampaign\Factories\ContactFactory;
 class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
 {
     /**
-     * Retreive an existing contact by their id.
+     * Retrieve an existing contact by their ID.
+     *
+     * @see https://developers.activecampaign.com/reference/get-contact
+     *
+     * @throws ActiveCampaignException
      */
     public function get(int $id): ActiveCampaignContact
     {
@@ -24,9 +28,13 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * List all contact, search contacts, or filter contacts by query defined criteria.
+     * List all contacts, search contacts, or filter contacts by query defined criteria.
+     *
+     * @see https://developers.activecampaign.com/reference/list-all-contacts
      *
      * @return Collection<int, ActiveCampaignContact>
+     *
+     * @throws ActiveCampaignException
      */
     public function list(?string $query = ''): Collection
     {
@@ -41,8 +49,9 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Create a contact and get the contact id.
+     * Create a contact and return the contact ID.
      *
+     * @see https://developers.activecampaign.com/reference/create-a-new-contact
      *
      * @throws ActiveCampaignException
      */
@@ -65,6 +74,7 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing contact.
      *
+     * @see https://developers.activecampaign.com/reference/update-a-contact-new
      *
      * @throws ActiveCampaignException
      */
@@ -88,8 +98,9 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Delete an existing contact by their id.
+     * Delete an existing contact by their ID.
      *
+     * @see https://developers.activecampaign.com/reference/delete-contact
      *
      * @throws ActiveCampaignException
      */
@@ -128,7 +139,7 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     /**
      * Remove a tag from a contact.
      *
-     * @see https://developers.activecampaign.com/reference#delete-contact-tag
+     * @see https://developers.activecampaign.com/reference/remove-a-contacts-tag
      *
      * @throws ActiveCampaignException
      */

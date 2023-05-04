@@ -9,8 +9,9 @@ use Label84\ActiveCampaign\Factories\FieldValueFactory;
 class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
 {
     /**
-     * Retreive an existing field value by their id.
+     * Retrieve an existing field value by its ID.
      *
+     * @see https://developers.activecampaign.com/reference/retrieve-a-fieldvalues
      *
      * @throws ActiveCampaignException
      */
@@ -26,8 +27,9 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Create a field value and get the id.
+     * Create a field value and return its ID.
      *
+     * @see https://developers.activecampaign.com/reference/create-fieldvalue
      *
      * @throws ActiveCampaignException
      */
@@ -52,6 +54,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     /**
      * Update an existing field value.
      *
+     * @see https://developers.activecampaign.com/reference/update-a-custom-field-value-for-contact
      *
      * @throws ActiveCampaignException
      */
@@ -74,8 +77,9 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Delete an existing field value by their id.
+     * Delete an existing field value by its ID.
      *
+     * @see https://developers.activecampaign.com/reference/delete-a-fieldvalue-1
      *
      * @throws ActiveCampaignException
      */
