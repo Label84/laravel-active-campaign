@@ -4,7 +4,7 @@ namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
-use Label84\ActiveCampaign\ActiveCampaignService;
+use Label84\ActiveCampaign\ActiveCampaign;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 
 class ActiveCampaignBaseResource
@@ -12,7 +12,7 @@ class ActiveCampaignBaseResource
     protected PendingRequest $client;
 
     public function __construct(
-        protected ActiveCampaignService $service,
+        protected ActiveCampaign $service,
     ) {
         $this->client = $this->service->makeRequest();
     }
