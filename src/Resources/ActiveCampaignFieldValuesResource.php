@@ -16,13 +16,11 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
      */
     public function get(int $id): ActiveCampaignFieldValue
     {
-        $fieldValue = $this->request(
+        return FieldValueFactory::make($this->request(
             method: 'get',
             path: 'fieldValues/'.$id,
             responseKey: 'fieldValue'
-        );
-
-        return FieldValueFactory::make($fieldValue);
+        ));
     }
 
     /**
@@ -57,7 +55,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
      */
     public function update(ActiveCampaignFieldValue $fieldValue): ActiveCampaignFieldValue
     {
-        $fieldValue = $this->request(
+        return FieldValueFactory::make($this->request(
             method: 'put',
             path: 'fieldValues/'.$fieldValue->contactId,
             data: [
@@ -68,9 +66,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
                 ],
             ],
             responseKey: 'fieldValue'
-        );
-
-        return FieldValueFactory::make($fieldValue);
+        ));
     }
 
     /**

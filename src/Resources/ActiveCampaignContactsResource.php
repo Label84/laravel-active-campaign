@@ -14,13 +14,11 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
      */
     public function get(int $id): ActiveCampaignContact
     {
-        $contact = $this->request(
+        return ContactFactory::make($this->request(
             method: 'get',
             path: 'contacts/'.$id,
             responseKey: 'contact'
-        );
-
-        return ContactFactory::make($contact);
+        ));
     }
 
     /**
@@ -70,7 +68,7 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
      */
     public function update(ActiveCampaignContact $contact): ActiveCampaignContact
     {
-        $contact = $this->request(
+        return ContactFactory::make($this->request(
             method: 'put',
             path: 'contacts/'.$contact->id,
             data: [
@@ -82,9 +80,7 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
                 ],
             ],
             responseKey: 'contact'
-        );
-
-        return ContactFactory::make($contact);
+        ));
     }
 
     /**

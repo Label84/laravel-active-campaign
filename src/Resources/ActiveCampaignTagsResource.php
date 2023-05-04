@@ -77,7 +77,7 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
     {
-        $tag = $this->request(
+        return TagFactory::make($this->request(
             method: 'put',
             path: 'tags/'.$tag->id,
             data: [
@@ -88,9 +88,7 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
                 ],
             ],
             responseKey: 'tag'
-        );
-
-        return TagFactory::make($tag);
+        ));
     }
 
     /**
