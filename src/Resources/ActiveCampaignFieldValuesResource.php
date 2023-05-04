@@ -29,7 +29,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
      *
      * @throws ActiveCampaignException
      */
-    public function create(int $contactId, string $field, string $value): string
+    public function create(int $contactId, string $fieldId, string $value, bool $useDefaults = true): string
     {
         $fieldValue = $this->request(
             method: 'post',
@@ -37,9 +37,10 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
             data: [
                 'fieldValue' => [
                     'contact' => $contactId,
-                    'field' => $field,
+                    'field' => $fieldId,
                     'value' => $value,
                 ],
+                'useDefaults' => $useDefaults,
             ],
             responseKey: 'contact'
         );
@@ -57,7 +58,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
     {
         return FieldValueFactory::make($this->request(
             method: 'put',
-            path: 'fieldValues/'.$fieldValue->contactId,
+            path: 'fieldValues/'.$fieldValue->field,
             data: [
                 'fieldValue' => [
                     'contact' => $fieldValue->contactId,
