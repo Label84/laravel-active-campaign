@@ -82,9 +82,9 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
             path: 'tags/'.$tag->id,
             data: [
                 'tag' => [
-                    'id' => $tag->id,
                     'tag' => $tag->name,
                     'description' => $tag->description,
+                    'tagType' => 'contact',
                 ],
             ],
             responseKey: 'tag'
