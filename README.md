@@ -12,6 +12,7 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 - [Laravel Support](#laravel-support)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Examples](#examples)
   - [Contacts](#contacts)
   - [Custom Field Values](#custom-field-values)
   - [Tags](#tags)
@@ -22,7 +23,7 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 
 | Version | Release |
 |---------|---------|
-| 10.x    | 1.1     |
+| 10.x    | 1.2     |
 | 9.x     | 1.1     |
 
 ## Installation
@@ -50,7 +51,6 @@ ACTIVE_CAMPAIGN_API_KEY=
 
 - [Active Campaign API Documentation](https://developers.activecampaign.com/reference)
 - [Active Campaign Contact API Documentation](https://developers.activecampaign.com/reference/contact)
-
 
 Access via facade:
 
@@ -80,10 +80,11 @@ class ContactController extends Controller
     public function __construct(private readonly ActiveCampaign $activeCampaign) { }
 
     // Usage
-    $this->activeCampaign->contacts()->get(1);    
+    $this->activeCampaign->contacts()->get(1);
 }
 ```
 
+## Examples
 
 The following examples use the facade for simplicity and assume `Label84\ActiveCampaign\Facades\ActiveCampaign` has been imported.
 
@@ -98,6 +99,7 @@ $contact = ActiveCampaign::contacts()->get(1);
 #### List all contact, search contacts, or filter contacts by query defined criteria
 
 See the API docs for a [full list of possible query parameters](https://developers.activecampaign.com/reference/list-all-contacts).
+
 ```php
 $contacts = ActiveCampaign::contacts()->list();
 $contactByEmail = ActiveCampaign::contacts()->list('email=info@example.com');
@@ -127,13 +129,13 @@ $contact = ActiveCampaign::contacts()->sync('info@example.com', [
 #### Update an existing contact
 
 ```php
-use ActiveCampaignContact;
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 
-$contact = new Label84\ActiveCampaign\DataObjects\ActiveCampaignContact(
-    id: 1, 
-    email: 'info@example.com', 
-    phone: '+3112345678', 
-    firstName: 'John', 
+$contact = new ActiveCampaignContact(
+    id: 1,
+    email: 'info@example.com',
+    phone: '+3112345678',
+    firstName: 'John',
     lastName: 'Deer',
 );
 
@@ -141,6 +143,7 @@ ActiveCampaign::contacts()->update($contact);
 ```
 
 #### Update the status of a contact on a list
+
 The status should be `1` for subscribed and `2` for unsubscribed
 
 ```php
@@ -160,7 +163,10 @@ ActiveCampaign::contacts()->delete(1);
 #### Add a tag to contact
 
 ```php
-$contactTagId = ActiveCampaign::contacts()->tag(id: 1, tagId: 20);
+$contactTagId = ActiveCampaign::contacts()->tag(
+    id: 1,
+    tagId: 20
+);
 ```
 
 #### Remove a tag from a contact
@@ -181,8 +187,8 @@ $fieldValue = ActiveCampaign::fieldValues()->get(50);
 
 ```php
 $fieldValueId = ActiveCampaign::fieldValues()->create(
-    contactId: 1, 
-    fieldId: 50, 
+    contactId: 1,
+    fieldId: 50,
     value: 'active',
 );
 ```
@@ -190,9 +196,11 @@ $fieldValueId = ActiveCampaign::fieldValues()->create(
 #### Update an existing field value
 
 ```php
-$fieldValue = new Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue(
-    contactId: 1, 
-    field: 50, 
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
+
+$fieldValue = new ActiveCampaignFieldValue(
+    contactId: 1,
+    field: 50,
     value: 'inactive',
 );
 
@@ -223,16 +231,20 @@ $filteredTags = ActiveCampaign::tags()->list('test_');
 #### Create a tag
 
 ```php
-$tag = ActiveCampaign::tags()->create(name: 'test_tag', description: 'This is a new tag');
+$tag = ActiveCampaign::tags()->create(
+    name: 'test_tag',
+    description: 'This is a new tag'
+);
 ```
 
 #### Update an existing tag
 
 ```php
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 
-$tag = new Label84\ActiveCampaign\DataObjects\ActiveCampaignTag(
-    id: 100, 
-    name: 'test_tag', 
+$tag = new ActiveCampaignTag(
+    id: 100,
+    name: 'test_tag',
     description: 'Another description',
 );
 
