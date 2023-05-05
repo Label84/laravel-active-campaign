@@ -82,20 +82,18 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
     {
-        $tag = $this->request(
+        return TagFactory::make($this->request(
             method: 'put',
             path: 'tags/'.$tag->id,
             data: [
                 'tag' => [
-                    'id' => $tag->id,
                     'tag' => $tag->name,
                     'description' => $tag->description,
+                    'tagType' => 'contact',
                 ],
             ],
             responseKey: 'tag'
-        );
-
-        return TagFactory::make($tag);
+        ));
     }
 
     /**
