@@ -44,7 +44,7 @@ class ActiveCampaignFieldValuesResource extends ActiveCampaignBaseResource
                 ],
                 'useDefaults' => $useDefaults,
             ],
-            responseKey: 'contact'
+            responseKey: 'fieldValue'
         );
 
         return $fieldValue['id'];
