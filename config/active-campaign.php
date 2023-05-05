@@ -26,10 +26,19 @@ return [
 
     /**
      * (optional)
-     * Here you can list your custom fields ids.
+     * Define aliases for custom field IDs
      */
     'custom_fields' => [
         // 'is_email_verified' => 50,
+    ],
+
+    /**
+     * (optional)
+     * Define aliases for your list IDs
+     */
+    'lists' => [
+        // 'newsletter' => 1,
+        // 'customers' => 2,
     ],
 
 ];

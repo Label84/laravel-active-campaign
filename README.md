@@ -12,6 +12,7 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 - [Laravel Support](#laravel-support)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Examples](#examples)
   - [Contacts](#contacts)
   - [Custom Field Values](#custom-field-values)
   - [Tags](#tags)
@@ -22,7 +23,7 @@ Currently the packages only supports the endpoints `Contacts`, `Custom Fields Va
 
 | Version | Release |
 |---------|---------|
-| 10.x    | 1.1     |
+| 10.x    | 1.2     |
 | 9.x     | 1.1     |
 
 ## Installation
@@ -51,30 +52,74 @@ ACTIVE_CAMPAIGN_API_KEY=
 - [Active Campaign API Documentation](https://developers.activecampaign.com/reference)
 - [Active Campaign Contact API Documentation](https://developers.activecampaign.com/reference/contact)
 
-### Contacts
+Access via facade:
 
-#### Retreive an existing contact by their id
+```php
+use Label84\ActiveCampaign\Facades\ActiveCampaign;
+
+// Usage
+$contact = ActiveCampaign::contacts()->get(1);
+```
+
+Resolve directly out of the container:
 
 ```php
 use Label84\ActiveCampaign\ActiveCampaign;
 
+// Usage
 $contact = resolve(ActiveCampaign::class)->contacts()->get(1);
+```
+
+Inject into a constructor or method via [automatic injection](https://laravel.com/docs/10.x/container#automatic-injection):
+
+```php
+use Label84\ActiveCampaign\ActiveCampaign;
+
+class ContactController extends Controller
+{
+    public function __construct(private readonly ActiveCampaign $activeCampaign) { }
+
+    // Usage
+    $this->activeCampaign->contacts()->get(1);
+}
+```
+
+## Examples
+
+The following examples use the facade for simplicity and assume `Label84\ActiveCampaign\Facades\ActiveCampaign` has been imported.
+
+### Contacts
+
+#### Retrieve an existing contact
+
+```php
+$contact = ActiveCampaign::contacts()->get(1);
 ```
 
 #### List all contact, search contacts, or filter contacts by query defined criteria
 
-```php
-use Label84\ActiveCampaign\ActiveCampaign;
+See the API docs for a [full list of possible query parameters](https://developers.activecampaign.com/reference/list-all-contacts).
 
-$contacts = resolve(ActiveCampaign::class)->contacts()->list('email=info@example.com');
+```php
+$contacts = ActiveCampaign::contacts()->list();
+$contactByEmail = ActiveCampaign::contacts()->list('email=info@example.com');
+$singleList = ActiveCampaign::contacts()->list('listid=1');
 ```
 
-#### Create a contact and get the contact id
+#### Create a new contact
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
+$contactId = ActiveCampaign::contacts()->create('info@example.com', [
+    'firstName' => 'John',
+    'lastName' => 'Doe',
+    'phone' => '+3112345678',
+]);
+```
 
-$contactId = resolve(ActiveCampaign::class)->contacts()->create('info@example.com', [
+#### Create a contact if they don't exist, or update an existing contact
+
+```php
+$contact = ActiveCampaign::contacts()->sync('info@example.com', [
     'firstName' => 'John',
     'lastName' => 'Doe',
     'phone' => '+3112345678',
@@ -84,118 +129,132 @@ $contactId = resolve(ActiveCampaign::class)->contacts()->create('info@example.co
 #### Update an existing contact
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 
-$contact = new ActiveCampaignContact(1, 'info@example.com', '+3112345678', 'John', 'Deer');
+$contact = new ActiveCampaignContact(
+    id: 1,
+    email: 'info@example.com',
+    phone: '+3112345678',
+    firstName: 'John',
+    lastName: 'Deer',
+);
 
-$contact = resolve(ActiveCampaign::class)->contacts()->update($contact);
+ActiveCampaign::contacts()->update($contact);
 ```
 
-#### Delete an existing contact by their id
+#### Update the status of a contact on a list
+
+The status should be `1` for subscribed and `2` for unsubscribed
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
+$contact = ActiveCampaign::contacts()->updateListStatus(
+    contactId: 1,
+    listId: 1,
+    status: 1,
+);
+```
 
-resolve(ActiveCampaign::class)->contacts()->delete(1);
+#### Delete an existing contact
+
+```php
+ActiveCampaign::contacts()->delete(1);
 ```
 
 #### Add a tag to contact
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-resolve(ActiveCampaign::class)->contacts()->tag(1, 20);
+$contactTagId = ActiveCampaign::contacts()->tag(
+    id: 1,
+    tagId: 20
+);
 ```
 
 #### Remove a tag from a contact
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-resolve(ActiveCampaign::class)->contacts()->untag(2340);
+ActiveCampaign::contacts()->untag(contactTagId: 2340);
 ```
 
 ### Custom Field Values
 
-#### Retreive an existing field value by their id
+#### Retrieve an existing field value
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-$fieldValue = resolve(ActiveCampaign::class)->fieldValues()->get(50);
+$fieldValue = ActiveCampaign::fieldValues()->get(50);
 ```
 
-#### Create a field value and get the id
+#### Create a field value
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-$fieldValue = resolve(ActiveCampaign::class)->fieldValues()->create(1, 50, 'active');
+$fieldValueId = ActiveCampaign::fieldValues()->create(
+    contactId: 1,
+    fieldId: 50,
+    value: 'active',
+);
 ```
 
 #### Update an existing field value
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 
-$fieldValue = new ActiveCampaignFieldValue(1, 50, 'inactive');
+$fieldValue = new ActiveCampaignFieldValue(
+    contactId: 1,
+    field: 50,
+    value: 'inactive',
+);
 
-$fieldValue = resolve(ActiveCampaign::class)->fieldValues()->update($fieldValue);
+ActiveCampaign::fieldValues()->update($fieldValue);
 ```
 
-#### Delete an existing field value by their id
+#### Delete an existing field value
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-resolve(ActiveCampaign::class)->fieldValues()->delete(50);
+ActiveCampaign::fieldValues()->delete(50);
 ```
 
 ### Tags
 
-#### Retreive an existing tag by their id
+#### Retrieve an existing tag
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-$tag = resolve(ActiveCampaign::class)->tags()->get(100);
+$tag = ActiveCampaign::tags()->get(100);
 ```
 
-#### List all tags filtered by name
+#### List all tags, optionally filtered by name
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-$tags = resolve(ActiveCampaign::class)->tags()->list('abc');
+$tags = ActiveCampaign::tags()->list();
+$filteredTags = ActiveCampaign::tags()->list('test_');
 ```
 
-#### Create a tag and get the id
+#### Create a tag
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-$tag = resolve(ActiveCampaign::class)->tags()->create('test_tag', 'This is a new tag');
+$tag = ActiveCampaign::tags()->create(
+    name: 'test_tag',
+    description: 'This is a new tag'
+);
 ```
 
 #### Update an existing tag
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignTag;
 
-$tag = new ActiveCampaignTag(100, 'test_tag', 'Another description');
+$tag = new ActiveCampaignTag(
+    id: 100,
+    name: 'test_tag',
+    description: 'Another description',
+);
 
-$tag = resolve(ActiveCampaign::class)->tags()->update($tag);
+ActiveCampaign::tags()->update($tag);
 ```
 
-#### Delete an existing tag by their id
+#### Delete an existing tag
 
 ```php
-use Label84\ActiveCampaign\ActiveCampaign;
-
-resolve(ActiveCampaign::class)->tags()->delete(100);
+ActiveCampaign::tags()->delete(100);
 ```
 
 ## Tests
