@@ -2,9 +2,9 @@
 
 namespace Label84\ActiveCampaign\Exceptions;
 
-use Exception;
+use Illuminate\Http\Client\RequestException;
 
-class ActiveCampaignException extends Exception
+class ActiveCampaignException extends RequestException
 {
     //
 }

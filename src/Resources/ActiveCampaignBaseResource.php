@@ -3,6 +3,7 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Label84\ActiveCampaign\ActiveCampaignService;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
@@ -17,15 +18,18 @@ class ActiveCampaignBaseResource
         $this->client = $this->service->makeRequest();
     }
 
+    /**
+     * @throws ActiveCampaignException
+     */
     public function request(string $method, string $path, array $data = [], ?string $responseKey = null): array
     {
-        /** @var Response $response */
-        $response = $this->client->$method($path, $data);
+        try {
+            /** @var Response $response */
+            $response = $this->client->$method($path, $data);
 
-        if ($response->failed()) {
-            throw new ActiveCampaignException($response->json());
+            return $response->throw()->json($responseKey);
+        } catch (RequestException $exception) {
+            throw new ActiveCampaignException($exception->response);
         }
-
-        return $response->throw()->json($responseKey);
     }
 }
