@@ -94,6 +94,50 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     }
 
     /**
+     * Create a contact or update an existing contact and return the ID.
+     *
+     * @see https://developers.activecampaign.com/reference/sync-a-contacts-data
+     *
+     * @throws ActiveCampaignException
+     */
+    public function sync(string $email, array $attributes = []): ActiveCampaignContact
+    {
+        return ContactFactory::make($this->request(
+            method: 'post',
+            path: 'contact/sync',
+            data: [
+                'contact' => [
+                    'email' => $email,
+                ] + $attributes,
+            ],
+            responseKey: 'contact'
+        ));
+    }
+
+    /**
+     * Subscribe a contact to a list or unsubscribe a contact from a list.
+     *
+     * @see https://developers.activecampaign.com/reference/update-list-status-for-contact
+     *
+     * @throws ActiveCampaignException
+     */
+    public function updateListStatus(int $contactId, int $listId, int $status): array
+    {
+        return $this->request(
+            method: 'post',
+            path: 'contactLists',
+            data: [
+                'contactList' => [
+                    'list' => $listId,
+                    'contact' => $contactId,
+                    'status' => $status,
+                ],
+            ],
+            responseKey: 'contactList'
+        );
+    }
+
+    /**
      * Delete an existing contact by their ID.
      *
      * @see https://developers.activecampaign.com/reference/delete-contact
