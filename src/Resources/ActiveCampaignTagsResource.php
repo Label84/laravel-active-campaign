@@ -63,8 +63,8 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
             data: [
                 'tag' => [
                     'tag' => $name,
-                    'description' => $description,
                     'tagType' => 'contact',
+                    'description' => $description,
                 ],
             ],
             responseKey: 'tag'
@@ -88,8 +88,8 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
             data: [
                 'tag' => [
                     'tag' => $tag->name,
-                    'description' => $tag->description,
                     'tagType' => 'contact',
+                    'description' => $tag->description,
                 ],
             ],
             responseKey: 'tag'
