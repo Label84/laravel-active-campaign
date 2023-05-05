@@ -10,8 +10,9 @@ use Label84\ActiveCampaign\Factories\TagFactory;
 class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
 {
     /**
-     * Retreive an existing tag by their id.
+     * Retrieve an existing tag by its ID.
      *
+     * @see https://developers.activecampaign.com/reference/retrieve-a-tag
      *
      * @throws ActiveCampaignException
      */
@@ -27,7 +28,9 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * List all tags filtered by name
+     * List all tags, optionally filtering them by name
+     *
+     * @see https://developers.activecampaign.com/reference/retrieve-all-tags
      *
      * @return Collection<int, ActiveCampaignTag>
      *
@@ -46,8 +49,9 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Create a tag and get the id.
+     * Create a tag and return its ID.
      *
+     * @see https://developers.activecampaign.com/reference/create-a-new-tag
      *
      * @throws ActiveCampaignException
      */
@@ -59,8 +63,8 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
             data: [
                 'tag' => [
                     'tag' => $name,
-                    'description' => $description,
                     'tagType' => 'contact',
+                    'description' => $description,
                 ],
             ],
             responseKey: 'tag'
@@ -72,30 +76,30 @@ class ActiveCampaignTagsResource extends ActiveCampaignBaseResource
     /**
      * Update an existing tag.
      *
+     * @see https://developers.activecampaign.com/reference/update-a-tag
      *
      * @throws ActiveCampaignException
      */
     public function update(ActiveCampaignTag $tag): ActiveCampaignTag
     {
-        $tag = $this->request(
+        return TagFactory::make($this->request(
             method: 'put',
             path: 'tags/'.$tag->id,
             data: [
                 'tag' => [
-                    'id' => $tag->id,
                     'tag' => $tag->name,
+                    'tagType' => 'contact',
                     'description' => $tag->description,
                 ],
             ],
             responseKey: 'tag'
-        );
-
-        return TagFactory::make($tag);
+        ));
     }
 
     /**
-     * Delete an existing tag by their id.
+     * Delete an existing tag by its ID.
      *
+     * @see https://developers.activecampaign.com/reference/delete-a-tag
      *
      * @throws ActiveCampaignException
      */
