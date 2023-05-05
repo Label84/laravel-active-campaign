@@ -94,7 +94,7 @@ class ActiveCampaignContactsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Create a contact or update an existing contact and return the ID.
+     * Create a contact or update an existing contact.
      *
      * @see https://developers.activecampaign.com/reference/sync-a-contacts-data
      *
