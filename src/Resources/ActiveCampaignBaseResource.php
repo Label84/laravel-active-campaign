@@ -21,7 +21,7 @@ class ActiveCampaignBaseResource
     /**
      * @throws ActiveCampaignException
      */
-    public function request(string $method, string $path, ?array $data = [], ?string $responseKey = null): array
+    public function request(string $method, string $path, ?array $data = [], string $responseKey = null): array
     {
         if ($data === [] && $method === 'get') {
             $data = null;

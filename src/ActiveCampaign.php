@@ -15,8 +15,8 @@ class ActiveCampaign
         public string $baseUrl,
         public string $key,
         public int $timeout,
-        public int|null $retryTimes = null,
-        public int|null $retrySleep = null,
+        public ?int $retryTimes = null,
+        public ?int $retrySleep = null,
     ) {
     }
 

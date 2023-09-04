@@ -3,14 +3,9 @@
 namespace Label84\ActiveCampaign\Factories;
 
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignField;
-use Label84\ActiveCampaign\DataObjects\ActiveCampaignFieldValue;
 
 class FieldFactory
 {
-    /**
-     * @param array $attributes
-     * @return ActiveCampaignField
-     */
     public static function make(array $attributes): ActiveCampaignField
     {
         return new ActiveCampaignField(

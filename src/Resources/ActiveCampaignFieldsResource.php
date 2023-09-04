@@ -14,14 +14,15 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
      *
      * @see https://developers.activecampaign.com/reference/retrieve-fields
      *
-     * @throws ActiveCampaignException
      * @return Collection<int, ActiveCampaignField>
+     *
+     * @throws ActiveCampaignException
      */
     public function list(?string $query = ''): Collection
     {
         $fields = $this->request(
             method: 'get',
-            path: 'fields?' . $query,
+            path: 'fields?'.$query,
             responseKey: 'fields'
         );
 
@@ -40,7 +41,7 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
     {
         return FieldFactory::make($this->request(
             method: 'get',
-            path: 'fields/' . $id,
+            path: 'fields/'.$id,
             responseKey: 'field'
         ));
     }
@@ -59,10 +60,10 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
             path: 'fields',
             data: [
                 'field' => [
-                        'type' => $type,
-                        'title' => $title,
-                        'descript' => $description,
-                    ] + $attributes,
+                    'type' => $type,
+                    'title' => $title,
+                    'descript' => $description,
+                ] + $attributes,
             ],
             responseKey: 'fieldValue'
         );
@@ -81,20 +82,20 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
     {
         return FieldFactory::make($this->request(
             method: 'put',
-            path: 'fields/' . $field->id,
+            path: 'fields/'.$field->id,
             data: [
                 'field' => [
-                    "type" => $field->type,
-                    "title" => $field->title,
-                    "descript" => $field->description,
-                    "perstag" => $field->perstag,
-                    "defval" => $field->defaultValue,
-                    "show_in_list" => $field->showInList,
-                    "rows" => $field->rows,
-                    "cols" => $field->cols,
-                    "visible" => $field->visible,
-                    "service" => $field->service,
-                    "ordernum" => $field->orderNumber,
+                    'type' => $field->type,
+                    'title' => $field->title,
+                    'descript' => $field->description,
+                    'perstag' => $field->perstag,
+                    'defval' => $field->defaultValue,
+                    'show_in_list' => $field->showInList,
+                    'rows' => $field->rows,
+                    'cols' => $field->cols,
+                    'visible' => $field->visible,
+                    'service' => $field->service,
+                    'ordernum' => $field->orderNumber,
                 ],
             ],
             responseKey: 'fieldValue'
@@ -112,7 +113,7 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
     {
         $this->request(
             method: 'delete',
-            path: 'fields/' . $id
+            path: 'fields/'.$id
         );
     }
 }
