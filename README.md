@@ -7,13 +7,14 @@
 
 This package provides a simple interface to the ActiveCampaign API v3.
 
-Currently the packages only supports the endpoints `Contacts`, `Custom Fields Values` and `Tags`. Feel free to PR the remaining endpoints.
+Currently the packages only supports the endpoints `Contacts`, `Custom Fields`, `Custom Fields Values` and `Tags`. Feel free to PR the remaining endpoints.
 
 - [Laravel Support](#laravel-support)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
   - [Contacts](#contacts)
+  - [Custom Fields](#custom-fields)
   - [Custom Field Values](#custom-field-values)
   - [Tags](#tags)
 - [Tests](#tests)
@@ -211,6 +212,45 @@ ActiveCampaign::fieldValues()->update($fieldValue);
 
 ```php
 ActiveCampaign::fieldValues()->delete(50);
+```
+
+### Custom Fields
+
+#### Retrieve an existing field
+
+```php
+$field = ActiveCampaign::fields()->get(1);
+```
+
+#### Create a field
+
+```php
+$fieldId = ActiveCampaign::fields()->create(
+    type: 'textarea',
+    title: 'about',
+    description: 'Short introduction',
+);
+```
+
+#### Update an existing field
+
+```php
+use Label84\ActiveCampaign\DataObjects\ActiveCampaignField;
+
+$fieldValue = new ActiveCampaignField(
+    id: 1,
+    type: 'textarea',
+    title: 'about',
+    description: 'Relevant skills',
+);
+
+ActiveCampaign::fields()->update($fieldValue);
+```
+
+#### Delete an existing field
+
+```php
+ActiveCampaign::fields()->delete(1);
 ```
 
 ### Tags
