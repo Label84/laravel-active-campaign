@@ -2,10 +2,10 @@
 
 namespace Label84\ActiveCampaign\Resources;
 
+use Illuminate\Support\Collection;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignField;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\FieldFactory;
-use Label84\ActiveCampaign\Factories\FieldValueFactory;
 
 class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
 {
@@ -15,8 +15,9 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
      * @see https://developers.activecampaign.com/reference/retrieve-fields
      *
      * @throws ActiveCampaignException
+     * @return Collection<int, ActiveCampaignField>
      */
-    public function list(?string $query = ''): ActiveCampaignField
+    public function list(?string $query = ''): Collection
     {
         $fields = $this->request(
             method: 'get',
@@ -25,7 +26,7 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
         );
 
         return collect($fields)
-            ->map(fn($field) => FieldFactory::make($field));
+            ->map(fn ($field) => FieldFactory::make($field));
     }
 
     /**
@@ -70,7 +71,7 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
     }
 
     /**
-     * Update an existing field value.
+     * Update an existing field.
      *
      * @see https://developers.activecampaign.com/reference/update-a-field
      *
@@ -78,7 +79,7 @@ class ActiveCampaignFieldsResource extends ActiveCampaignBaseResource
      */
     public function update(ActiveCampaignField $field): ActiveCampaignField
     {
-        return FieldValueFactory::make($this->request(
+        return FieldFactory::make($this->request(
             method: 'put',
             path: 'fields/' . $field->id,
             data: [
