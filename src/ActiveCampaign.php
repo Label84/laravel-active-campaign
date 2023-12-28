@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Label84\ActiveCampaign\Resources\ActiveCampaignContactsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignFieldsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignFieldValuesResource;
+use Label84\ActiveCampaign\Resources\ActiveCampaignListsResource;
 use Label84\ActiveCampaign\Resources\ActiveCampaignTagsResource;
 
 class ActiveCampaign
@@ -54,5 +55,10 @@ class ActiveCampaign
     public function tags(): ActiveCampaignTagsResource
     {
         return new ActiveCampaignTagsResource($this);
+    }
+
+    public function lists(): ActiveCampaignListsResource
+    {
+        return new ActiveCampaignListsResource($this);
     }
 }
