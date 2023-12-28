@@ -10,7 +10,7 @@ class ActiveCampaignList
         public readonly string $stringid,
         public readonly string $sender_url,
         public readonly string $sender_reminder,
-        public readonly ?int $send_last_broadcast,
+        public readonly ?string $send_last_broadcast,
         public readonly ?string $carboncopy,
         public readonly ?string $subscription_notify,
         public readonly ?string $unsubscription_notify,

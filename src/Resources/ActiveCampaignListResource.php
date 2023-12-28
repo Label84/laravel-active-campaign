@@ -3,10 +3,9 @@
 namespace Label84\ActiveCampaign\Resources;
 
 use Illuminate\Support\Collection;
-use Label84\ActiveCampaign\DataObjects\ActiveCampaignContact;
 use Label84\ActiveCampaign\DataObjects\ActiveCampaignList;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
-use Label84\ActiveCampaign\Factories\ContactFactory;
+use Label84\ActiveCampaign\Factories\ListFactory;
 
 class ActiveCampaignListResource extends ActiveCampaignBaseResource
 {
@@ -17,9 +16,9 @@ class ActiveCampaignListResource extends ActiveCampaignBaseResource
      *
      * @throws ActiveCampaignException
      */
-    public function get(string $id): ActiveCampaignContact
+    public function get(string $id): ActiveCampaignList
     {
-        return ContactFactory::make($this->request(
+        return ListFactory::make($this->request(
             method: 'get',
             path: 'lists/'.$id,
             responseKey: 'list'
@@ -39,12 +38,12 @@ class ActiveCampaignListResource extends ActiveCampaignBaseResource
     {
         $lists = $this->request(
             method: 'get',
-            path: 'contacts?'.$query,
+            path: 'lists?'.$query,
             responseKey: 'lists'
         );
 
         return collect($lists)
-            ->map(fn ($list) => ContactFactory::make($list));
+            ->map(fn ($list) => ListFactory::make($list));
     }
 
     /**

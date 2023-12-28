@@ -21,7 +21,7 @@ class ListFactory
             $attributes['carboncopy'],
             $attributes['subscription_notify'],
             $attributes['unsubscription_notify'],
-            $attributes['user'],
+            intval($attributes['user']),
         );
     }
 }
