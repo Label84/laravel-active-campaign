@@ -7,7 +7,7 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignList;
 use Label84\ActiveCampaign\Exceptions\ActiveCampaignException;
 use Label84\ActiveCampaign\Factories\ListFactory;
 
-class ActiveCampaignListResource extends ActiveCampaignBaseResource
+class ActiveCampaignListsResource extends ActiveCampaignBaseResource
 {
     /**
      * Retrieve an existing list by its ID.
