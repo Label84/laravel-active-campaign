@@ -53,7 +53,7 @@ class ActiveCampaignListsResource extends ActiveCampaignBaseResource
      *
      * @throws ActiveCampaignException
      */
-    public function create(string $email, array $attributes = []): string
+    public function create(array $attributes = []): string
     {
         $list = $this->request(
             method: 'post',
