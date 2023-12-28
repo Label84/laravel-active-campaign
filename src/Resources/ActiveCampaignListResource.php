@@ -40,7 +40,7 @@ class ActiveCampaignListResource extends ActiveCampaignBaseResource
         $lists = $this->request(
             method: 'get',
             path: 'contacts?'.$query,
-            responseKey: 'contacts'
+            responseKey: 'lists'
         );
 
         return collect($lists)
