@@ -7,7 +7,7 @@ use Label84\ActiveCampaign\DataObjects\ActiveCampaignList;
 class ListFactory
 {
     /**
-     * @param array<string> $attributes
+     * @param  array<string>  $attributes
      */
     public static function make(array $attributes): ActiveCampaignList
     {
