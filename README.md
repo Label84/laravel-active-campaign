@@ -1,3 +1,11 @@
+> [!WARNING]
+>
+> This package is no longer maintained.
+>
+> We have decided to stop maintaining this package. We don't use ActiveCampaign anymore and don't have the time to maintain this package.
+>
+> Feel free to fork our code and adapt it to your needs.
+
 # Laravel ActiveCampaign
 
 [![Latest Stable Version](https://poser.pugx.org/label84/laravel-active-campaign/v/stable?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
