@@ -4,13 +4,14 @@
 >
 > We have decided to stop maintaining this package. We don't use ActiveCampaign anymore and don't have the time to maintain this package.
 >
+> Suggested alternative: [https://github.com/rossbearman/laravel-active-campaign](https://github.com/rossbearman/laravel-active-campaign)
+>
 > Feel free to fork our code and adapt it to your needs.
 
 # Laravel ActiveCampaign
 
 [![Latest Stable Version](https://poser.pugx.org/label84/laravel-active-campaign/v/stable?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Quality Score](https://img.shields.io/scrutinizer/g/label84/laravel-active-campaign.svg?style=flat-square)](https://scrutinizer-ci.com/g/label84/laravel-active-campaign)
 [![Total Downloads](https://img.shields.io/packagist/dt/label84/laravel-active-campaign.svg?style=flat-square)](https://packagist.org/packages/label84/laravel-active-campaign)
 
 This package provides a simple interface to the ActiveCampaign API v3.
